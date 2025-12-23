@@ -11,8 +11,6 @@
       <div class="row">
       <input type = 'password' name = 'password' v-model = 'password' placeholder="Lozinka"><br>
       </div>
-      <!-- <button @click = 'login()'>Ulogujte se</button> -->
-      <!-- ovako kaze chatGPT da treba -->
       <button type="submit">Ulogujte se</button>
     </form>
 

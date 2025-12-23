@@ -2,9 +2,13 @@
   <div class="profile">
     <h2>Moj profil</h2>
 
-    <p>Korisničko ime: {{ user.username }}</p>
     <p>Ime: {{ user.firstname }}</p>
     <p>Prezime: {{ user.lastname }}</p>
+    <p>Telefon: {{ user.phone }}</p>   
+    <p>Adresa: {{ user.address }}</p>
+    <p>E-mail: {{ user.email }}</p>
+    <p>Korisničko ime: {{ user.username }}</p>
+    <p>Lozinka: {{ user.password }}</p>
   </div>
 </template>
 
