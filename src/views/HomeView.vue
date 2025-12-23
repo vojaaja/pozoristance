@@ -30,29 +30,28 @@ export default {
     }
   },
   methods: {
-  login() {
-    const users = JSON.parse(localStorage.getItem('users'))
+    login() {
+      const users = JSON.parse(localStorage.getItem('users'))
 
-    const user = users.find(
-      u => u.username === this.username && u.password === this.password
-    )
+      const user = users.find(
+        u => u.username === this.username && u.password === this.password
+      )
 
-    if (!user) {
-      this.message = 'Greška'
-      return
+      if (!user) {
+        this.message = 'Greška'
+        return
+      }
+
+      localStorage.setItem('ulogovanKorisnik', JSON.stringify(user))
+      window.dispatchEvent(new Event('ulogovan'))
+
+      // nema više test / duplih push-eva
+      if (user.type === 0) {
+        this.$router.push('user')
+      } else {
+        this.$router.push('admin')
+      }
     }
-
-    localStorage.setItem('ulogovanKorisnik', JSON.stringify(user))
-    window.dispatchEvent(new Event('ulogovan'))
-
-    // nema više test / duplih push-eva
-    if (user.type === 0) {
-      this.$router.push('user')
-    } else {
-      this.$router.push('admin')
-    }
-  }
-
   }
 }
 </script>
