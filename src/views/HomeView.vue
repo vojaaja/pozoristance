@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import users from '../data/usersData'
+// import users from '../data/usersData'
 export default {
   name: 'HomeView',
   data(){ 
@@ -30,25 +30,29 @@ export default {
     }
   },
   methods: {
-    login(){
-      var user = users.find(user=>user.username==this.username && user.password == this.password)
+  login() {
+    const users = JSON.parse(localStorage.getItem('users'))
 
-      if(user==null){
-        this.message = 'Greska'
-      }else{
-        localStorage.setItem('ulogovanKorisnik', JSON.stringify(user))
-        // EMITUJ EVENT
-        window.dispatchEvent(new Event('ulogovan'))
+    const user = users.find(
+      u => u.username === this.username && u.password === this.password
+    )
 
-        this.$router.push('/test')
-
-        if(user.type==0){
-          this.$router.push('user')
-        }else{
-          this.$router.push('admin')
-        }
-      }
+    if (!user) {
+      this.message = 'Greška'
+      return
     }
+
+    localStorage.setItem('ulogovanKorisnik', JSON.stringify(user))
+    window.dispatchEvent(new Event('ulogovan'))
+
+    // nema više test / duplih push-eva
+    if (user.type === 0) {
+      this.$router.push('user')
+    } else {
+      this.$router.push('admin')
+    }
+  }
+
   }
 }
 </script>
