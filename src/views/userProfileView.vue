@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="profile" v-if="user">
     <h2>Moj profil</h2>
 
     <form class="profile-form" @submit.prevent="sacuvaj">
@@ -42,8 +42,40 @@
     </form>
 
     <p v-if="poruka" class="success">{{ poruka }}</p>
+
+    <!-- KUPlJENE KARTE – samo za korisnika -->
+    <div v-if="user.type === 0">
+      <hr>
+
+      <h3 class="section-title">Kupljene karte</h3>
+
+      <div
+        v-if="user.kupljeneKarte.length === 0"
+        class="no-tickets"
+      >
+        Nemate kupljenih karata.
+      </div>
+
+      <div v-else class="tickets-list">
+        <div
+          class="ticket-item"
+          v-for="karta in user.kupljeneKarte"
+          :key="karta.nazivPredstave"
+        >
+          <span class="ticket-name">
+            {{ karta.nazivPredstave }}
+          </span>
+
+          <span class="ticket-count">
+            {{ karta.kolicina }} karata
+          </span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
+
 
 
 <script>
@@ -52,11 +84,18 @@ export default {
   data() {
     return {
       user: null,
-      poruka: ''
+      poruka: '',
+      isAdmin: false
     }
   },
   created() {
     this.user = JSON.parse(localStorage.getItem('ulogovanKorisnik'))
+
+    if (!this.user.kupljeneKarte) {
+      this.user.kupljeneKarte = []
+    }
+
+    this.isAdmin = this.user.type === 1
   },
   methods: {
     sacuvaj() {
@@ -119,4 +158,42 @@ button {
   margin-top: 10px;
   color: green;
 }
+
+
+.section-title {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.no-tickets {
+  font-style: italic;
+  color: #777;
+}
+
+.tickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ticket-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.ticket-name {
+  font-weight: bold;
+}
+
+.ticket-count {
+  color: #333;
+}
+
+
+
 </style>

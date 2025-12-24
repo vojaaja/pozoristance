@@ -105,7 +105,8 @@ export default {
       this.predstave.push({
         naziv: this.naziv,
         opis: this.opis,
-        slika: this.slika
+        slika: this.slika,
+        broj_mesta: 50
       })
 
       localStorage.setItem(

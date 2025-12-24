@@ -1,43 +1,78 @@
-<template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+<template> 
+  <nav class="nav" v-if="ulogovan">
 
-    <span v-if="ulogovan">
-      <!-- | <router-link to="/test">TEST LINK</router-link> -->
+    <!-- LOGO LEVO -->
+    <div class="logo">
+      <img src="@/assets/pozoristance.svg" alt="Pozorištance logo">
+    </div>
+
+    <!-- LINKOVI POSLE LOGOVANJA -->
+    <div class="nav-links">
+      <router-link to="/">Home</router-link>
       | <router-link to="/profile">Moj profil</router-link>
       | <a href="#" @click.prevent="logout">Logout</a>
-    </span>
+    </div>
+
   </nav>
 </template>
 
+
+
+
+
 <style>
-
-
-
-nav {
-  padding: 30px;
+/* NASLOV PRE LOGOVANJA */
+nav.nav {
+  position: relative;
+  padding: 12px 30px;   /* ⬅ prostor gore i dole */
   background-color: #42b983;
+  display: flex;
+  align-items: center;
+}
+
+
+/* LOGO */
+.logo img {
+  height: 35px;
+  width: auto;
+}
+
+/* NASLOV – APSOLUTNO U CENTRU */
+.nav-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 45px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #000000;
+  pointer-events: none; /* ne smeta klikovima */
+}
+
+/* LINKOVI */
+.nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
 }
 
-/* boja za linkove */
+
 nav a {
-  font-weight: bold;
   color: #000000;
   text-decoration: none;
   margin: 0 10px;
 }
 
-/* boja kad predjem misem */
 nav a:hover {
-  color: #2c3e50;
+  text-decoration: underline;
 }
 
-/* boja aktivne rute  */
 nav a.router-link-exact-active {
-  color: #2c3e50;
+  font-weight: bold;
+  text-decoration: underline;
 }
+
 
 </style>
 
