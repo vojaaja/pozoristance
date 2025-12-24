@@ -1,6 +1,17 @@
 <template>
   <div class="user">
 
+
+    <!-- SORTIRANJE -->
+    <div v-if="predstave.length > 0" style="margin-bottom: 20px;">
+      Sortiraj po nazivu:
+      <select v-model="sortOrder" @change="sortiraj">
+        <option value="asc">A – Z</option>
+        <option value="desc">Z – A</option>
+      </select>
+    </div>
+
+
     <div v-if="!predstave || predstave.length === 0">
       Nema predstava u sistemu
     </div>
@@ -46,13 +57,34 @@
 <script>
 export default {
   name: 'UserView',
+
   data() {
     return {
-      predstave: []
+      predstave: [],
+      sortOrder: 'asc'
     }
   },
+
+  methods: {
+    sortiraj() {
+      if (this.sortOrder === 'asc') {
+        this.predstave.sort((a, b) =>
+          a.naziv.localeCompare(b.naziv)
+        )
+      } else {
+        this.predstave.sort((a, b) =>
+          b.naziv.localeCompare(a.naziv)
+        )
+      }
+    }
+  },
+
   created() {
-    this.predstave = JSON.parse(localStorage.getItem('predstave')) || []
+    this.predstave =
+      JSON.parse(localStorage.getItem('predstave')) || []
+
+    // podrazumevano A–Z
+    this.sortiraj()
   }
 }
 </script>
