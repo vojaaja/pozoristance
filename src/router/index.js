@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Admin from '../views/Admin.vue'
-import User from '../views/User.vue'
+// import Admin from '../views/Admin.vue'
+// import User from '../views/User.vue'
 import Details from '../views/Details.vue'
 import UserProfileView from '../views/userProfileView.vue'
 import TestView from '../views/testView.vue'
@@ -24,16 +24,16 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin
-  },
-  {
-    path: '/user',
-    name: 'User',
-    component: User
-  },
+  // {
+  //   path: '/admin',
+  //   name: 'Admin',
+  //   component: Admin
+  // },
+  // {
+  //   path: '/user',
+  //   name: 'User',
+  //   component: User
+  // },
   {
     path: '/detaljiknjige/:naziv',
     name: 'Detalji',

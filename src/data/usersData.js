@@ -27,7 +27,7 @@ const users = [
         username: 'admin',
         password: 'admin',
         email: 'admin@admin.com',
-        type: 0
+        type: 1
     }
 ]
 

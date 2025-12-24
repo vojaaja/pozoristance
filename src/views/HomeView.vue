@@ -1,70 +1,83 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/pozoristance2-01.png">
-    <HelloWorld msg="Dobrodošli!"/>
 
-    <!-- <br> -->
-    <form class = "login-form" @submit.prevent="login">
-      <div class="row">
-      <input type = 'text' name = 'username' v-model = 'username' placeholder="Korisničko ime"><br>
-      </div>
-      <div class="row">
-      <input type = 'password' name = 'password' v-model = 'password' placeholder="Lozinka"><br>
-      </div>
-      <button type="submit">Ulogujte se</button>
-    </form>
+    <!-- NIJE ULOGOVAN -->
+    <div v-if="!ulogovanKorisnik" class="login-wrapper">
+      <img alt="Logo" src="../assets/pozoristance2-01.png">
 
-    <p class="message">{{ message }}</p>
+      <form class="login-form" @submit.prevent="login">
+        <div class="row">
+          <input type="text" v-model="username" placeholder="Korisničko ime">
+        </div>
+
+        <div class="row">
+          <input type="password" v-model="password" placeholder="Lozinka">
+        </div>
+
+        <button type="submit">Ulogujte se</button>
+      </form>
+
+      <p class="message">{{ message }}</p>
+    </div>
+
+
+    <!-- ULOGOVAN KUPAC -->
+    <UserView v-else-if="ulogovanKorisnik.type === 0" />
+
+    <!-- ULOGOVAN ZAPOSLENI -->
+    <AdminView v-else />
+
   </div>
 </template>
 
 <script>
-// import users from '../data/usersData'
+import UserView from '@/views/User.vue'
+import AdminView from '@/views/Admin.vue'
+
 export default {
   name: 'HomeView',
-  data(){ 
+  components: {
+    UserView,
+    AdminView
+  },
+  data() {
     return {
       username: '',
       password: '',
-      message: ''
+      message: '',
+      ulogovanKorisnik: null
+    }
+  },
+  created() {
+    const user = localStorage.getItem('ulogovanKorisnik')
+    if (user) {
+      this.ulogovanKorisnik = JSON.parse(user)
     }
   },
   methods: {
     login() {
-      const users = JSON.parse(localStorage.getItem('users'))
+      const users = JSON.parse(localStorage.getItem('users')) || []
 
       const user = users.find(
         u => u.username === this.username && u.password === this.password
       )
 
       if (!user) {
-        this.message = 'Greška'
+        this.message = 'Pogrešno korisničko ime ili lozinka'
         return
       }
 
       localStorage.setItem('ulogovanKorisnik', JSON.stringify(user))
-      window.dispatchEvent(new Event('ulogovan'))
+      this.ulogovanKorisnik = user
+      this.message = ''
 
-      // nema više test / duplih push-eva
-      if (user.type === 0) {
-        this.$router.push('user')
-      } else {
-        this.$router.push('admin')
-      }
+      window.location.reload()
+
     }
+    
   }
 }
 </script>
-
-
-<!-- <style scoped>
-.home {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style> -->
-
 
 <style scoped>
 .home {
@@ -107,5 +120,12 @@ button {
   color: red;
 }
 
+.login-wrapper {
+  min-height: calc(100vh - 80px); /* 80px ≈ visina navigacije */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 </style>

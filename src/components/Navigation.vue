@@ -61,8 +61,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem('ulogovanKorisnik')
-      this.ulogovan = false
-      this.$router.push('/')
+      window.location.href = '/'
     }
   }
 }
