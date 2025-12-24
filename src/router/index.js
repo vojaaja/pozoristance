@@ -35,7 +35,7 @@ const routes = [
   //   component: User
   // },
   {
-    path: '/detaljiknjige/:naziv',
+    path: '/detaljipredstave/:naziv',
     name: 'Detalji',
     component: Details
   },

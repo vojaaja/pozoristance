@@ -1,8 +1,8 @@
 <template>
     <div v-if="predstavA">
-        Detalji za knjigu {{ predstavA.naziv }}
+        Detalji za predstavu {{ predstavA.naziv }}
         <hr>
-        Godina: {{ predstavA.godine }}
+        Opis: {{ predstavA.opis }}
     </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     }
   },
   created(){
-    // ono sto je prosledjeno kad je kliknuta knjiga
+    // ono sto je prosledjeno kad je kliknuta predstava
     var naziv = this.$route.params.naziv; 
     // ovde nije radila proveru, ali kaze 'mozete proveriti'
     var predstave = JSON.parse(localStorage.getItem('predstave'));
