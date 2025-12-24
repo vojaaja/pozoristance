@@ -1,13 +1,13 @@
 <template>
     <div>
         <br>
-        <h2>Dodaj knjigu</h2>
+        <h2>Dodaj predstavu</h2>
         <form>
             Naziv: <input type = 'text' name = 'naziv' v-model = 'naziv'>
             <br>
-            Godina izdanja: <input type = 'text' name = 'godina' v-model = 'godina'>
+            Opis: <input type = 'text' name = 'opis' v-model = 'opis'>
             <br>
-            Autor: <input type = 'text' name = 'autor' v-model = 'autor'>
+            Slika: <input type = 'text' name = 'slika' v-model = 'slika'>
             <br>
             <button @click = 'dodaj()'>Dodaj</button>
         </form>
@@ -22,25 +22,25 @@ export default {
   data(){
     return{
         naziv: '',
-        godina: '',
-        autor: '',
-        knjige: []
+        opis: '',
+        slika: '',
+        predstave: []
     }
   },
   methods:{
     dodaj(){
-        this.knjige.push({naziv: this.naziv, godine: parseInt(this.godina), 
-            autor: this.autor
+        this.predstave.push({naziv: this.naziv, opis: this.opis, 
+            slika: this.slika
         });
-        localStorage.setItem('knjige', JSON.stringify(this.knjige));
+        localStorage.setItem('predstave', JSON.stringify(this.predstave));
     }
   },
   created(){
-    if(localStorage.getItem('knjige') == null){
-        this.knjige = [];
-        localStorage.setItem('knjige', JSON.stringify(this.knjige));
+    if(localStorage.getItem('predstave') == null){
+        this.predstave = [];
+        localStorage.setItem('predstave', JSON.stringify(this.predstave));
     }else{
-        this.knjige = JSON.parse(localStorage.getItem('knjige'))
+        this.predstave = JSON.parse(localStorage.getItem('predstave'))
     }
   }
 }

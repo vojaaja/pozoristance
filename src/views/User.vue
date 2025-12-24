@@ -1,26 +1,21 @@
 <template>
     <div class = 'user'>
-        <div v-if = '!knjige'> Nema knjiga u sistemu</div>
-        <div v-if = 'knjige'>
+        <div v-if = '!predstave'> Nema predstava u sistemu</div>
+        <div v-if = 'predstave'>
             <table>
                 <tr>
                     <th>Naziv</th>
-                    <th>Godina</th>
-                    <th>Autor</th>
+                    <th>Opis</th>
+                    <th>Slika</th>
                 </tr>
-                <tr v-for = 'knjiga in knjige' :key = 'knjiga.naziv'>
+                <tr v-for = 'predstavA in predstave' :key = 'predstavA.naziv'>
                     <td>
-                        <router-link :to="/detaljiknjige/+knjiga.naziv">
-                        {{ knjiga.naziv }}
+                        <router-link :to="/detaljipredstave/+predstavA.naziv">
+                        {{ predstavA.naziv }}
                         </router-link>
-                        <!-- ovako ispod kaze ChatGPT da se pise -->
-                        <!-- <router-link :to="`/detaljiknjige/${knjiga.naziv}`">
-                        {{ knjiga.naziv }}
-                        </router-link> -->
                     </td>
-                    <td>{{ knjiga.godine }}</td>
-                    <td>{{ knjiga.autor }}</td>
-                    <!-- <td><button @click = 'edit(knjiga)'></button></td> -->
+                    <td>{{ predstavA.opis }}</td>
+                    <td>{{ predstavA.slika }}</td>
                 </tr>
             </table>
         </div>
@@ -42,7 +37,7 @@ export default {
   name: 'UserView',
   data(){
     return{
-        knjige: []
+        predstave: []
     }
   },
   methods:{
@@ -56,7 +51,7 @@ export default {
 
   },
   created(){
-    this.knjige = JSON.parse(localStorage.getItem('knjige'))
+    this.predstave = JSON.parse(localStorage.getItem('predstave'))
   }
 }
 </script>

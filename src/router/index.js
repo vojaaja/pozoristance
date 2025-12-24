@@ -5,7 +5,7 @@ import HomeView from '../views/HomeView.vue'
 // import User from '../views/User.vue'
 import Details from '../views/Details.vue'
 import UserProfileView from '../views/userProfileView.vue'
-import TestView from '../views/testView.vue'
+// import TestView from '../views/testView.vue'
 
 
 Vue.use(VueRouter)
@@ -43,12 +43,13 @@ const routes = [
     path: '/profile',
     name: 'UserProfile',
     component: UserProfileView
-  },
-  {
-    path: '/test',
-    name: 'Test',
-    component: TestView
   }
+  // ,
+  // {
+  //   path: '/test',
+  //   name: 'Test',
+  //   component: TestView
+  // }
   
 
   
