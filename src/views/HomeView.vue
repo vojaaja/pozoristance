@@ -1,7 +1,7 @@
 <template>
   <div class="home">
 
-    <!-- NIJE ULOGOVAN -->
+    <!-- NIKO NIJE ULOGOVAN -->
     <div v-if="!ulogovanKorisnik" class="login-wrapper">
       <img alt="Logo" src="../assets/pozoristance2-01.png">
 
@@ -21,7 +21,7 @@
     </div>
 
 
-    <!-- ULOGOVAN KUPAC -->
+    <!-- ULOGOVAN KORISNIK -->
     <UserView v-else-if="ulogovanKorisnik.type === 0" />
 
     <!-- ULOGOVAN ZAPOSLENI -->
@@ -56,8 +56,7 @@ export default {
   },
   methods: {
     login() {
-      const users = JSON.parse(localStorage.getItem('users')) || []
-
+      const users = JSON.parse(localStorage.getItem('users')) 
       const user = users.find(
         u => u.username === this.username && u.password === this.password
       )
@@ -70,11 +69,9 @@ export default {
       localStorage.setItem('ulogovanKorisnik', JSON.stringify(user))
       this.ulogovanKorisnik = user
       this.message = ''
-
+      // ovo imam kako bi mogla navigacija da se izvrsi, mora taj reload da se uradi
       window.location.reload()
-
     }
-    
   }
 }
 </script>
@@ -82,7 +79,7 @@ export default {
 <style scoped>
 .home {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* sve ide jedno ispod drugog */
   align-items: center;
 }
 
@@ -95,7 +92,7 @@ export default {
 }
 
 .row {
-  width: 100%;
+  width: 100%;  /* 100% sirine roditeljskog elementa */
 }
 
 input,
@@ -116,12 +113,12 @@ button {
 }
 
 .message {
-  margin-top: 10px;
+  margin-top: 10px; /*10 piksela praznog prostora izmedju poruke i login buttona */
   color: red;
 }
 
 .login-wrapper {
-  min-height: calc(100vh - 80px); /* 80px ≈ visina navigacije */
+  min-height: calc(100vh - 80px); /* visina ovog elementa mora biti minimum visina ekrana umanjena za 80 piksela */
   display: flex;
   flex-direction: column;
   justify-content: center;
