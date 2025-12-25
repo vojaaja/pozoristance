@@ -1,4 +1,3 @@
-
 <template>
   <div class="user">
 
@@ -6,8 +5,8 @@
     <div v-if="predstave.length > 0" style="margin-bottom: 20px;">
       Sortiraj po nazivu:
       <select v-model="sortOrder" @change="sortiraj">
-        <option value="asc">A – Z</option>
-        <option value="desc">Z – A</option>
+        <option value="asc">A – Z </option>
+        <option value="desc">Z – A </option>
       </select>
     </div>
 
@@ -15,12 +14,13 @@
       Nema predstava u sistemu
     </div>
     <div v-else class="predstave-grid">
-      <div
-        class="predstava-card"
+        <!-- pojedinacne predstave -->
+      <div 
+        class="predstava-card" 
         v-for="predstava in predstave"
         :key="predstava.naziv"
       >
-        <!-- LINK: samo slika + naziv -->
+        <!-- sve ce biti link ka detaljima, i slika i naziv i opis -->
         <router-link
           :to="`/detaljipredstave/${predstava.naziv}`"
           class="card-link"
@@ -38,12 +38,12 @@
             {{ predstava.opis }}
             </p>
         </router-link>
-        <!-- OPIS NIJE LINK -->
 
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
@@ -69,12 +69,13 @@ export default {
   },
   created() {
     this.predstave =
-      JSON.parse(localStorage.getItem('predstave')) || []
-    // podrazumevano A–Z
+      JSON.parse(localStorage.getItem('predstave')) || [] /* || [] ovo sam stavio da ako u localStorage nema predstave neka koristi praznu listu, da ne bi puklo */
+    // default sortiranje od A–Z
     this.sortiraj()
   }
 }
 </script>
+
 
 <style scoped>
 .user {
@@ -90,7 +91,7 @@ export default {
 .predstava-card {
   text-align: left;
 }
-/* LINK BEZ PODVLAČENJA */
+/* LINK BEZ PODVLACENJA */
 .card-link {
   text-decoration: none;
   color: inherit;

@@ -10,6 +10,7 @@
       {{ predstavA.broj_mesta }}
     </p>
 
+    <!-- prikaz samo za korisnike -->
     <div v-if="!isAdmin">
       <div>
         <label>Broj karata:</label>
@@ -21,6 +22,7 @@
         >
       </div>
 
+      <!-- kad nema slobodnih mesta dugme se gasi -->
       <button
         @click="kupiKarte"
         :disabled="predstavA.broj_mesta === 0"
@@ -56,6 +58,7 @@ export default {
   },
 
   created() {
+    // uzima naziv iz urla detaljipredstave/naziv i smesta ga u promenljivu
     const naziv = this.$route.params.naziv
 
     this.predstave =
@@ -65,14 +68,7 @@ export default {
       p => p.naziv === naziv
     )
 
-    // fallback ako nema broj_mesta
-    if (this.predstavA && this.predstavA.broj_mesta === undefined) {
-      this.predstavA.broj_mesta = 50
-      localStorage.setItem(
-        'predstave',
-        JSON.stringify(this.predstave)
-      )
-    }
+    // provera da li je korisnik admin
     const user = JSON.parse(localStorage.getItem('ulogovanKorisnik'))
     this.isAdmin = user && user.type === 1
 
@@ -84,7 +80,7 @@ export default {
         this.kolicina > 0 &&
         this.kolicina <= this.predstavA.broj_mesta
       ) {
-        /* 1. smanji broj mesta */
+        /* smanji broj mesta za broj kupljenih karata */
         this.predstavA.broj_mesta -= this.kolicina
 
         localStorage.setItem(
@@ -92,7 +88,7 @@ export default {
           JSON.stringify(this.predstave)
         )
 
-        /* 2. upisi kupljene karte korisniku */
+        /* upisi kupljene karte korisniku */
         let user = JSON.parse(localStorage.getItem('ulogovanKorisnik'))
 
         if (!user.kupljeneKarte) {
@@ -103,6 +99,7 @@ export default {
           k => k.nazivPredstave === this.predstavA.naziv
         )
 
+        // ako je vec kupio karte za predstavu
         if (postojeca) {
           postojeca.kolicina += this.kolicina
         } else {
@@ -112,7 +109,7 @@ export default {
           })
         }
 
-        /* 3. sacuvaj korisnika */
+        /* desile se promene na korisniku, pa se mora sacuvati u localStorage */
         localStorage.setItem(
           'ulogovanKorisnik',
           JSON.stringify(user)
@@ -126,7 +123,7 @@ export default {
 
         localStorage.setItem('users', JSON.stringify(users))
 
-        /* 4. poruka */
+        // ispis poruke
         this.poruka = `Kupljeno ${this.kolicina} karata.`
         this.kolicina = 1
       }

@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
 
-    <!-- FORMA ZA DODAVANJE -->
+    <!-- FORMA ZA DODAVANJE PREDSTAVA-->
     <h2 class="forma-naslov">Dodaj predstavu</h2>
 
     <form class="forma">
@@ -49,12 +49,12 @@
     </div>
 
     <div v-else class="predstave-grid">
+      <!-- odavde se uzima index koji ce kasnije sluziti da se predstava obrise -->
       <div
         class="predstava-card"
         v-for="(predstava, index) in predstave"
         :key="predstava.naziv"
       >
-
         <router-link
           :to="`/detaljipredstave/${predstava.naziv}`"
           class="card-link"
@@ -125,7 +125,7 @@ export default {
     },
 
     obrisi(index) {
-      this.predstave.splice(index, 1)
+      this.predstave.splice(index, 1) /*index je redni broj predstave u nizu, splice brise taj element iz niza*/
 
       localStorage.setItem(
         'predstave',
@@ -222,21 +222,18 @@ export default {
   color: inherit;
 }
 
-/* POSTER */
 .poster {
   width: 100%;
   height: auto;
   border: 1px solid #ddd;
 }
 
-/* NAZIV */
 .naziv {
   margin-top: 12px;
   font-size: 20px;
   font-weight: bold;
 }
 
-/* OPIS */
 .opis {
   margin-top: 6px;
   font-size: 14px;

@@ -17,19 +17,36 @@
 </template>
 
 
-
+<script>
+export default {
+  name: "Navigation",
+  data() {
+    return {
+      ulogovan: false
+    }
+  },
+  created() {
+    this.ulogovan = localStorage.getItem('ulogovanKorisnik') !== null /*ako postoji True, ako ne postoji False */
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('ulogovanKorisnik')
+      window.location.href = '/' /*rucno reloaduje stranicu i vrati je na pocetnu */
+    }
+  }
+}
+</script>
 
 
 <style>
-/* NASLOV PRE LOGOVANJA */
+/* NAVIGATION BAR */
 nav.nav {
   position: relative;
-  padding: 12px 30px;   /* ⬅ prostor gore i dole */
+  padding: 12px 30px;  
   background-color: #42b983;
   display: flex;
   align-items: center;
 }
-
 
 /* LOGO */
 .logo img {
@@ -37,26 +54,13 @@ nav.nav {
   width: auto;
 }
 
-/* NASLOV – APSOLUTNO U CENTRU */
-.nav-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 45px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  color: #000000;
-  pointer-events: none; /* ne smeta klikovima */
-}
-
-/* LINKOVI */
+/* LINKOVI U NAV BARU*/
 .nav-links {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
 }
-
 
 nav a {
   color: #000000;
@@ -72,33 +76,7 @@ nav a.router-link-exact-active {
   font-weight: bold;
   text-decoration: underline;
 }
-
-
 </style>
 
 
-<!-- PROMENIO SAM IME U APPNAVIGATION JER MI SADA OVA VERZIJA VUE.JS TO TRAZI IZGLEDA -->
-<script>
-export default {
-  name: "Navigation",
-  data() {
-    return {
-      ulogovan: false
-    }
-  },
-  created() {
-    this.ulogovan = localStorage.getItem('ulogovanKorisnik') !== null
-
-    window.addEventListener('ulogovan', () => {
-      this.ulogovan = true
-    })
-  },
-  methods: {
-    logout() {
-      localStorage.removeItem('ulogovanKorisnik')
-      window.location.href = '/'
-    }
-  }
-}
-</script>
 

@@ -43,7 +43,7 @@
 
     <p v-if="poruka" class="success">{{ poruka }}</p>
 
-    <!-- KUPlJENE KARTE – samo za korisnika -->
+    <!-- PRIKAZ KUPLJENIH KARATA - samo za korisnika -->
     <div v-if="user.type === 0">
       <hr>
 
@@ -94,18 +94,18 @@ export default {
     if (!this.user.kupljeneKarte) {
       this.user.kupljeneKarte = []
     }
-
+    // provera da li je korisnik admin
     this.isAdmin = this.user.type === 1
   },
   methods: {
     sacuvaj() {
-      // 1. update ulogovanog korisnika
+      // update ulogovanog korisnika u localStorage
       localStorage.setItem(
         'ulogovanKorisnik',
         JSON.stringify(this.user)
       )
 
-      // 2. update u "bazi" korisnika
+      // update podataka user-a u localStorage-u
       let users = JSON.parse(localStorage.getItem('users'))
 
       users = users.map(u =>
@@ -193,7 +193,4 @@ button {
 .ticket-count {
   color: #333;
 }
-
-
-
 </style>
