@@ -249,4 +249,8 @@ export default {
   padding: 6px 10px;
   cursor: pointer;
 }
+
+.obrisi:hover {
+  background-color: #a81f1f;
+}
 </style>
